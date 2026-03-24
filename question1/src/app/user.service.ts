@@ -15,7 +15,7 @@ export class UserService {
     if (userString != null) this.currentUser = JSON.parse(userString);
   }
 
-  isConnected(): boolean {
+  isLogged(): boolean {
     return this.currentUser != undefined;
   }
 
