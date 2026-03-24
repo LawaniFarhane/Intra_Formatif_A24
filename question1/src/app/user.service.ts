@@ -15,6 +15,10 @@ export class UserService {
     if (userString != null) this.currentUser = JSON.parse(userString);
   }
 
+  isConnected(): boolean {
+    return this.currentUser != undefined;
+  }
+
   connect(user: User) {
     this.currentUser = user;
     localStorage.setItem(USER_KEY, JSON.stringify(user));
