@@ -5,63 +5,81 @@
 </mat-toolbar>
 
 <h1>Formulaire qui sert à rien</h1>
+
 <mat-card style="width: 700px; margin: auto; padding: 20px;">
+
+  <!-- On relie le formulaire Angular -->
   <form [formGroup]="formGroup" (ngSubmit)="envoyer()">
 
+    <!-- NOM -->
     <mat-form-field style="width: 100%">
       <mat-label>Nom</mat-label>
-      <input matInput type="text" placeholder="Nom et prénom" formControlName="nom">
 
+      <!-- formControlName connecte le champ au TS -->
+      <input matInput type="text" formControlName="nom">
+
+      <!-- Message d'erreur -->
       @if (formGroup.get('nom')?.hasError('required')) {
         <mat-error>Le nom est requis</mat-error>
       }
     </mat-form-field>
 
+    <!-- NUMÉRO DE RUE -->
     <mat-form-field style="width: 100%">
       <mat-label>Numéro de rue</mat-label>
-      <input matInput type="number" placeholder="5230" formControlName="roadnumber">
+      <input matInput type="number" formControlName="roadnumber">
 
       @if (formGroup.get('roadnumber')?.hasError('required')) {
-        <mat-error>Le numéro de rue est requis</mat-error>
+        <mat-error>Le numéro est requis</mat-error>
       }
 
       @if ((formGroup.get('roadnumber')?.hasError('min') || formGroup.get('roadnumber')?.hasError('max'))
       && !formGroup.get('roadnumber')?.hasError('required')) {
-        <mat-error>Le numéro de rue doit être entre 1000 et 9999</mat-error>
+        <mat-error>Doit être entre 1000 et 9999</mat-error>
       }
     </mat-form-field>
 
+    <!-- RUE -->
     <mat-form-field style="width: 100%">
       <mat-label>Rue</mat-label>
-      <input matInput type="text" placeholder="Resther" formControlName="rue">
+      <input matInput type="text" formControlName="rue">
     </mat-form-field>
 
+    <!-- CODE POSTAL -->
     <mat-form-field style="width: 100%">
       <mat-label>Code Postal</mat-label>
-      <input matInput type="text" placeholder="H2J8B2" formControlName="postalcode">
+      <input matInput type="text" formControlName="postalcode">
 
       @if (formGroup.get('postalcode')?.hasError('postalcodeInvalide')) {
-        <mat-error>Le code postal doit respecter le format A1A 1A1</mat-error>
+        <mat-error>Format invalide (A1A 1A1)</mat-error>
       }
     </mat-form-field>
 
+    <!-- COMMENTAIRE -->
     <mat-form-field style="width: 100%">
       <mat-label>Commentaire</mat-label>
-      <textarea matInput placeholder="Votre commentaire" formControlName="commentaire"></textarea>
+      <textarea matInput formControlName="commentaire"></textarea>
 
       @if (formGroup.get('commentaire')?.hasError('minWords')) {
-        <mat-error>Le commentaire doit contenir au moins 10 mots</mat-error>
+        <mat-error>Minimum 10 mots</mat-error>
       }
     </mat-form-field>
 
+    <!-- ERREUR GLOBALE -->
     @if (formGroup.hasError('nomDansCommentaire')) {
-      <mat-error>Le commentaire ne doit pas mentionner le nom de l’utilisateur</mat-error>
+      <mat-error>
+        Le commentaire ne doit pas mentionner le nom de l’utilisateur
+      </mat-error>
     }
 
+    <!-- BOUTON -->
     <mat-card-actions align="end">
+
+      <!-- Désactivé si formulaire invalide -->
       <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
         Acheter
       </button>
+
     </mat-card-actions>
 
   </form>
